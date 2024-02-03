@@ -5,4 +5,4 @@ $dados = json_decode($dados, true);
 foreach ($dados as $produto) {
     echo $produto['nome'] . ' - ' . $produto['valor'] . '<br>';
 }
-?>
+

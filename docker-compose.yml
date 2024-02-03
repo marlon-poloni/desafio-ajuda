@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   db:
-    image: mysql:latest
+    image: mysql:5.7.44
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -12,9 +12,9 @@ services:
     ports:
       - "3306:3306"
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
       timeout: 10s
-      retries: 5
+      retries: 10
     networks:
       - mercado_default
 
@@ -22,11 +22,17 @@ services:
     build: ./NodeApp
     ports:
       - "3000:3000"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     depends_on:
       db:
         condition: service_healthy
+    extra_hosts:
+      - "app:127.0.0.1"
     networks:
       - mercado_default
+    
 
   web:
     build: ./PhpApp

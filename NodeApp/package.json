@@ -2,10 +2,9 @@
   "name": "docker-api",
   "version": "1.0.0",
   "description": "desafio",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit",
-    "start": "nodemon .NodeApp/index"
+    "test": "echo \"Error: no test specified\" && exit"
   },
   "keywords": [
     "Docker"
